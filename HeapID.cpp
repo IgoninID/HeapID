@@ -19,9 +19,22 @@ int main()
         cout << arr[i] << " ";
     }
     cout << endl;
-    HeapSort(arr, arr.length());
-    for (size_t i = 0; i < arr.length(); i++)
+    MyHeap<int> a(arr);
+
+    for (size_t i = 0; i < a.getSize(); i++)
     {
-        cout << arr[i] << " ";
+        cout << a.getArr()[i] << " ";
     }
+    cout << endl;
+    a.Remove();
+    for (size_t i = 0; i < a.getSize(); i++)
+    {
+        cout << a.getArr()[i] << " ";
+    }
+    cout << endl;
+   // HeapSort(arr, arr.length());
+   // for (size_t i = 0; i < arr.length(); i++)
+   // {
+   //     cout << arr[i] << " ";
+   // }
 }
