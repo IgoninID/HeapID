@@ -26,12 +26,23 @@ int main()
         cout << a.getArr()[i] << " ";
     }
     cout << endl;
+    for (auto x : a)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
     a.Remove();
     for (size_t i = 0; i < a.getSize(); i++)
     {
         cout << a.getArr()[i] << " ";
     }
     cout << endl;
+    for (auto x : a)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
+
    // HeapSort(arr, arr.length());
    // for (size_t i = 0; i < arr.length(); i++)
    // {

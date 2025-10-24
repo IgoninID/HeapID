@@ -2,6 +2,7 @@
 
 #pragma once
 #include "../TemplArr/Arr.h"
+#include "../InterfIter/AbstrIter.h"
 
 template <typename T>
 void HeapMake(DynArr<T>& arr, size_t size, size_t i)
@@ -110,6 +111,45 @@ public:
         size = 0;
     }
 
+    class Iterator : public AbstrIter<T>
+    {
+        MyHeap<T>* heapPtr;
+        size_t i;
+
+    public:
+        Iterator(MyHeap<T>* heap, size_t i) : heapPtr(heap), i(i) {}
+        Iterator& operator ++() override
+        {
+            ++i;
+            return *this;
+        }
+
+        T& operator *() const override
+        {
+            if (i >= heapPtr->getSize())
+            {
+                throw out_of_range("За пределами кучи");
+            }
+            return heapPtr->arr[i];
+        }
+
+        bool operator !=(const AbstrIter<T>& other) const override
+        {
+            const Iterator* it = dynamic_cast<const Iterator*>(&other);
+            return !it || this->i != it->i || this->heapPtr != it->heapPtr;
+        }
+    };
+
+    Iterator begin()
+    {
+        return Iterator(this, 0);
+    }
+
+    Iterator end()
+    {
+        return Iterator(this, size);
+    }
+
     /// <summary>
     /// Конструктор, создающий кучу из динамического массива.
     /// </summary>
@@ -121,50 +161,6 @@ public:
         {
             down(i);
         }
-    }
-
-    /// <summary>
-    /// Конструктор копирования. Создает кучу на основе другой кучи.
-    /// </summary>
-    /// <param name="heap">Куча, из которой копируются данные.</param>
-    MyHeap(const MyHeap<T>& heap) : arr(heap.arr)
-    {
-        this->size = heap.size;
-    }
-
-    /// <summary>
-    /// Конструктор перемещения. Переносит данные из другой кучи.
-    /// </summary>
-    /// <param name="heap">Куча, из которой переносятся данные.</param>
-    MyHeap(MyHeap<T>&& heap) noexcept : arr(heap.arr)
-    {
-        this->size = heap.size;
-        heap.size = 0;
-        heap.arr.Clear();
-    }
-
-    /// <summary>
-    /// Оператор присваивания (копирование).
-    /// </summary>
-    /// <param name="heap">Куча, из которой копируются данные.</param>
-    /// <returns>Ссылка на текущую кучу после присваивания.</returns>
-    MyHeap<T>& operator = (const MyHeap<T>& heap)
-    {
-        return MyHeap(heap);
-    }
-
-    /// <summary>
-    /// Оператор присваивания (перемещение).
-    /// </summary>
-    /// <param name="heap">Куча, из которой переносятся данные.</param>
-    /// <returns>Ссылка на текущую кучу после присваивания.</returns>
-    MyHeap<T>& operator = (MyHeap<T>&& heap)
-    {
-        if (this != &heap)
-        {
-            return MyHeap(heap);
-        }
-        return *this;
     }
 
     /// <summary>
@@ -226,6 +222,7 @@ public:
         if (size == 1)
         {
             arr.popFront();
+            size = 0;
             return;
         }
         arr[0] = arr[size - 1];
@@ -254,13 +251,6 @@ public:
         throw overflow_error("Нет такого элемента");
     }
 
-    /// <summary>
-    /// Деструктор. Освобождает память, занятую кучей.
-    /// </summary>
-    ~MyHeap()
-    {
-        arr.Clear();
-    }
 };
 
 
