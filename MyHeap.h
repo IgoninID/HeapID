@@ -261,5 +261,7 @@ void HeapSort(DynArr<T>& arr)
     }
 }
 
-
+/// <summary>
+/// Тесты методов кучи
+/// </summary>
 void test();
