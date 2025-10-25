@@ -101,6 +101,7 @@ void test()
 		DynArr<int> arr;
 		DynArr<int> arr1;
 		arr1.pushBack(5);
+
 		DynArr<int> arr5;
 		arr5.pushBack(3);
 		arr5.pushBack(7);
@@ -108,17 +109,47 @@ void test()
 		arr5.pushBack(20);
 		arr5.pushBack(15);
 
+		DynArr<int> arr_inc;
+		arr_inc.pushBack(1);
+		arr_inc.pushBack(2);
+		arr_inc.pushBack(5);
+		arr_inc.pushBack(20);
+		arr_inc.pushBack(30);
+
+		DynArr<int> arr_dec;
+		arr_dec.pushBack(30);
+		arr_dec.pushBack(20);
+		arr_dec.pushBack(5);
+		arr_dec.pushBack(2);
+		arr_dec.pushBack(1);
+
 		HeapSort(arr);
 		HeapSort(arr1);
 		HeapSort(arr5);
+		HeapSort(arr_inc);
+		HeapSort(arr_dec);
 
 		assert(arr.length() == 0);
+
 		assert(arr1[0] == 5);
+
 		assert(arr5[0] == 20);
 		assert(arr5[1] == 15);
 		assert(arr5[2] == 7);
 		assert(arr5[3] == 3);
 		assert(arr5[4] == 1);
+
+		assert(arr_inc[0] == 30);
+		assert(arr_inc[1] == 20);
+		assert(arr_inc[2] == 5);
+		assert(arr_inc[3] == 2);
+		assert(arr_inc[4] == 1);
+
+		assert(arr_dec[0] == 30);
+		assert(arr_dec[1] == 20);
+		assert(arr_dec[2] == 5);
+		assert(arr_dec[3] == 2);
+		assert(arr_dec[4] == 1);
 	}
 
 	// итератор кучи
