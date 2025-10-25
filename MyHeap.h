@@ -28,20 +28,6 @@ void HeapMake(DynArr<T>& arr, size_t size, size_t i)
 	}
 }
 
-template <typename T>
-void HeapSort(DynArr<T>& arr, size_t size)
-{
-	for (int i = size / 2 - 1; i >= 0; i--)
-	{
-		HeapMake(arr, size, i);
-	}
-	for (int i = size - 1; i >= 0; i--)
-	{
-		swap(arr[0], arr[i]);
-		HeapMake(arr, i, 0);
-	}
-}
-
 // Шаблонный класс MyHeap, реализующий структуру данных "максимальная куча" (max-heap)
 template <typename T>
 class MyHeap
@@ -252,6 +238,28 @@ public:
     }
 
 };
+
+/// <summary>
+/// Сортировка кучей (по убыванию)
+/// Сложность О(n log n)
+/// </summary>
+/// <typeparam name="T">Тип данных</typeparam>
+/// <param name="arr">Сортируемый массив</param>
+template <typename T>
+void HeapSort(DynArr<T>& arr)
+{
+    size_t size = arr.length();
+    if (size <= 1)
+    {
+        return;
+    }
+    MyHeap<T> heap(arr);
+    for (size_t i = 0; i < size; i++)
+    {
+        arr[i] = heap.Max();
+        heap.Remove();
+    }
+}
 
 
 void test();

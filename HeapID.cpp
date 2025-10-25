@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    test();
     DynArr<int> arr;
     arr.pushBack(1);
     arr.pushBack(12);
